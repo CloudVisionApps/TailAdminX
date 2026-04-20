@@ -206,11 +206,20 @@ git push origin v2.1.1
 
 ### Install from GitHub Packages
 
+First configure your npm client to use the GitHub registry for the CloudVisionApps scope:
+
+```bash
+echo "@cloudvisionapps:registry=https://npm.pkg.github.com" >> ~/.npmrc
+echo "//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN" >> ~/.npmrc
+```
+
+Then install the package:
+
 ```bash
 npm install @cloudvisionapps/tailadminx
 ```
 
-If your environment requires it, authenticate first against the GitHub registry at https://npm.pkg.github.com.
+Using npm install without the GitHub registry configuration will query the public npm registry and return 404.
 
 If the publish job reports a package permission error, enable read and write workflow permissions in the repository settings or add a repository secret named GH_PACKAGES_TOKEN with package write access.
 
