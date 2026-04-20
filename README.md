@@ -212,6 +212,8 @@ npm install @cloudvisionapps/tailadminx
 
 If your environment requires it, authenticate first against the GitHub registry at https://npm.pkg.github.com.
 
+If the publish job reports a package permission error, enable read and write workflow permissions in the repository settings or add a repository secret named GH_PACKAGES_TOKEN with package write access.
+
 ## License
 
 TailAdmin React.js Free Version is released under the MIT License.
