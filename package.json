@@ -1,13 +1,42 @@
 {
-  "name": "tailadmin-react",
-  "private": true,
+  "name": "@cloudvisionapps/tailadminx",
+  "private": false,
   "version": "2.1.0",
+  "description": "TailAdminX React admin dashboard and UI library",
+  "license": "MIT",
   "type": "module",
+  "main": "./dist-lib/index.cjs",
+  "module": "./dist-lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CloudVisionApps/TailAdminX.git"
+  },
+  "homepage": "https://github.com/CloudVisionApps/TailAdminX",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist-lib/index.js",
+      "require": "./dist-lib/index.cjs"
+    },
+    "./styles.css": "./src/lib/styles.css"
+  },
+  "files": [
+    "dist-lib",
+    "src/lib/styles.css"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:lib": "vite build -c vite.config.lib.ts",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build:lib",
+    "package:check": "npm pack --dry-run"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.15",
