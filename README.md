@@ -198,8 +198,8 @@ This repository is now configured to publish the library package to GitHub Packa
 3. Create and push a tag matching the version, for example:
 
 ```bash
-git tag v2.1.0
-git push origin v2.1.0
+git tag v2.1.1
+git push origin v2.1.1
 ```
 
 4. GitHub Actions will build the app, build the library, publish the package, and attach release artifacts.

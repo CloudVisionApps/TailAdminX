@@ -1,7 +1,7 @@
 {
   "name": "@cloudvisionapps/tailadminx",
   "private": false,
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "TailAdminX React admin dashboard and UI library",
   "license": "MIT",
   "type": "module",
@@ -13,7 +13,8 @@
   },
   "homepage": "https://github.com/CloudVisionApps/TailAdminX",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   },
   "exports": {
     ".": {
