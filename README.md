@@ -187,6 +187,31 @@ A major update with comprehensive redesign and modern React patterns implementat
 
 - Initial release of TailAdmin React.
 
+## Publishing to GitHub Packages
+
+This repository is now configured to publish the library package to GitHub Packages.
+
+### Publish flow
+
+1. Bump the version in package.json.
+2. Commit and push to main.
+3. Create and push a tag matching the version, for example:
+
+```bash
+git tag v2.1.0
+git push origin v2.1.0
+```
+
+4. GitHub Actions will build the app, build the library, publish the package, and attach release artifacts.
+
+### Install from GitHub Packages
+
+```bash
+npm install @cloudvisionapps/tailadminx
+```
+
+If your environment requires it, authenticate first against the GitHub registry at https://npm.pkg.github.com.
+
 ## License
 
 TailAdmin React.js Free Version is released under the MIT License.
