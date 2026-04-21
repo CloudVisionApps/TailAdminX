@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 
 // Assume these icons are imported from an icon library
@@ -18,14 +18,33 @@ import {
 import { useSidebar } from "../context/SidebarContext";
 import SidebarWidget from "./SidebarWidget";
 
-type NavItem = {
+export type SidebarSubItem = {
   name: string;
-  icon: React.ReactNode;
-  path?: string;
-  subItems?: { name: string; path: string; pro?: boolean; new?: boolean }[];
+  path: string;
+  pro?: boolean;
+  isNew?: boolean;
+  badge?: ReactNode;
 };
 
-const navItems: NavItem[] = [
+export type SidebarNavItem = {
+  name: string;
+  icon: ReactNode;
+  path?: string;
+  subItems?: SidebarSubItem[];
+};
+
+export interface AppSidebarProps {
+  mainMenuItems?: SidebarNavItem[];
+  secondaryMenuItems?: SidebarNavItem[];
+  brandLink?: string;
+  brandFull?: ReactNode;
+  brandCompact?: ReactNode;
+  mainSectionTitle?: ReactNode;
+  secondarySectionTitle?: ReactNode;
+  widget?: ReactNode;
+}
+
+export const defaultMainMenuItems: SidebarNavItem[] = [
   {
     icon: <GridIcon />,
     name: "Dashboard",
@@ -61,7 +80,7 @@ const navItems: NavItem[] = [
   },
 ];
 
-const othersItems: NavItem[] = [
+export const defaultSecondaryMenuItems: SidebarNavItem[] = [
   {
     icon: <PieChartIcon />,
     name: "Charts",
@@ -92,12 +111,29 @@ const othersItems: NavItem[] = [
   },
 ];
 
-const AppSidebar: React.FC = () => {
+const AppSidebar: React.FC<AppSidebarProps> = ({
+  mainMenuItems = defaultMainMenuItems,
+  secondaryMenuItems = defaultSecondaryMenuItems,
+  brandLink = "/",
+  brandFull = (
+    <span className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+      TailAdminX
+    </span>
+  ),
+  brandCompact = (
+    <span className="text-base font-bold tracking-tight text-gray-900 dark:text-white">
+      TX
+    </span>
+  ),
+  mainSectionTitle = "Menu",
+  secondarySectionTitle = "Others",
+  widget = <SidebarWidget />,
+}) => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const location = useLocation();
 
   const [openSubmenu, setOpenSubmenu] = useState<{
-    type: "main" | "others";
+    type: "main" | "secondary";
     index: number;
   } | null>(null);
   const [subMenuHeight, setSubMenuHeight] = useState<Record<string, number>>(
@@ -113,14 +149,14 @@ const AppSidebar: React.FC = () => {
 
   useEffect(() => {
     let submenuMatched = false;
-    ["main", "others"].forEach((menuType) => {
-      const items = menuType === "main" ? navItems : othersItems;
+    ["main", "secondary"].forEach((menuType) => {
+      const items = menuType === "main" ? mainMenuItems : secondaryMenuItems;
       items.forEach((nav, index) => {
         if (nav.subItems) {
           nav.subItems.forEach((subItem) => {
             if (isActive(subItem.path)) {
               setOpenSubmenu({
-                type: menuType as "main" | "others",
+                type: menuType as "main" | "secondary",
                 index,
               });
               submenuMatched = true;
@@ -133,7 +169,7 @@ const AppSidebar: React.FC = () => {
     if (!submenuMatched) {
       setOpenSubmenu(null);
     }
-  }, [location, isActive]);
+  }, [location, isActive, mainMenuItems, secondaryMenuItems]);
 
   useEffect(() => {
     if (openSubmenu !== null) {
@@ -147,7 +183,10 @@ const AppSidebar: React.FC = () => {
     }
   }, [openSubmenu]);
 
-  const handleSubmenuToggle = (index: number, menuType: "main" | "others") => {
+  const handleSubmenuToggle = (
+    index: number,
+    menuType: "main" | "secondary"
+  ) => {
     setOpenSubmenu((prevOpenSubmenu) => {
       if (
         prevOpenSubmenu &&
@@ -160,7 +199,10 @@ const AppSidebar: React.FC = () => {
     });
   };
 
-  const renderMenuItems = (items: NavItem[], menuType: "main" | "others") => (
+  const renderMenuItems = (
+    items: SidebarNavItem[],
+    menuType: "main" | "secondary"
+  ) => (
     <ul className="flex flex-col gap-2.5">
       {items.map((nav, index) => (
         <li key={nav.name}>
@@ -249,7 +291,7 @@ const AppSidebar: React.FC = () => {
                     >
                       {subItem.name}
                       <span className="flex items-center gap-1 ml-auto">
-                        {subItem.new && (
+                        {subItem.isNew && (
                           <span
                             className={`ml-auto ${
                               isActive(subItem.path)
@@ -260,6 +302,7 @@ const AppSidebar: React.FC = () => {
                             new
                           </span>
                         )}
+                        {subItem.badge}
                         {subItem.pro && (
                           <span
                             className={`ml-auto ${
@@ -303,16 +346,8 @@ const AppSidebar: React.FC = () => {
           !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
         }`}
       >
-        <Link to="/">
-          {isExpanded || isHovered || isMobileOpen ? (
-            <span className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-              TailAdminX
-            </span>
-          ) : (
-            <span className="text-base font-bold tracking-tight text-gray-900 dark:text-white">
-              TX
-            </span>
-          )}
+        <Link to={brandLink}>
+          {isExpanded || isHovered || isMobileOpen ? brandFull : brandCompact}
         </Link>
       </div>
       <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
@@ -327,12 +362,12 @@ const AppSidebar: React.FC = () => {
                 }`}
               >
                 {isExpanded || isHovered || isMobileOpen ? (
-                  "Menu"
+                  mainSectionTitle
                 ) : (
                   <HorizontaLDots className="size-6" />
                 )}
               </h2>
-              {renderMenuItems(navItems, "main")}
+              {renderMenuItems(mainMenuItems, "main")}
             </div>
             <div className="">
               <h2
@@ -343,16 +378,16 @@ const AppSidebar: React.FC = () => {
                 }`}
               >
                 {isExpanded || isHovered || isMobileOpen ? (
-                  "Others"
+                  secondarySectionTitle
                 ) : (
                   <HorizontaLDots />
                 )}
               </h2>
-              {renderMenuItems(othersItems, "others")}
+              {renderMenuItems(secondaryMenuItems, "secondary")}
             </div>
           </div>
         </nav>
-        {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null}
+        {isExpanded || isHovered || isMobileOpen ? widget : null}
       </div>
     </aside>
   );

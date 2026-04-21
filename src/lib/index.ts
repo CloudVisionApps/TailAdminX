@@ -64,6 +64,20 @@ export { default as AppSidebar } from "../layout/AppSidebar";
 export { default as Backdrop } from "../layout/Backdrop";
 export { default as SidebarWidget } from "../layout/SidebarWidget";
 export { default as AuthLayout } from "../pages/AuthPages/AuthPageLayout";
+export {
+  defaultMainMenuItems,
+  defaultSecondaryMenuItems,
+} from "../layout/AppSidebar";
+export type { AppLayoutProps } from "../layout/AppLayout";
+export type { AppHeaderProps } from "../layout/AppHeader";
+export type {
+  AppSidebarProps,
+  SidebarNavItem,
+  SidebarSubItem,
+} from "../layout/AppSidebar";
+export type { BackdropProps } from "../layout/Backdrop";
+export type { SidebarWidgetProps } from "../layout/SidebarWidget";
+export type { AuthLayoutProps } from "../pages/AuthPages/AuthPageLayout";
 
 export { default as Alert } from "../components/ui/alert/Alert";
 export { default as Avatar } from "../components/ui/avatar/Avatar";

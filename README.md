@@ -89,6 +89,59 @@ template includes:
 
 All components are built with React and styled using Tailwind CSS for easy customization.
 
+## Library Usage Example
+
+Import styles once in your app entry:
+
+```tsx
+import "@cloudvisionapps/tailadminx/styles.css";
+```
+
+Basic component import:
+
+```tsx
+import { Button, Modal, InputField } from "@cloudvisionapps/tailadminx";
+```
+
+Configurable layout example (custom logo, links, and menu items):
+
+```tsx
+import {
+  AppLayout,
+  type SidebarNavItem,
+  defaultMainMenuItems,
+  defaultSecondaryMenuItems,
+} from "@cloudvisionapps/tailadminx";
+
+const mainMenuItems: SidebarNavItem[] = [
+  ...defaultMainMenuItems,
+  {
+    name: "Docs",
+    path: "/docs",
+    icon: <span>D</span>,
+  },
+];
+
+export default function DashboardShell() {
+  return (
+    <AppLayout
+      headerProps={{
+        brandLink: "/dashboard",
+        brand: <span>My Admin</span>,
+        searchPlaceholder: "Search users, reports, settings...",
+      }}
+      sidebarProps={{
+        mainMenuItems,
+        secondaryMenuItems: defaultSecondaryMenuItems,
+        brandLink: "/dashboard",
+        brandFull: <img src="/logo-full.svg" alt="My Admin" />,
+        brandCompact: <img src="/logo-mini.svg" alt="MA" />,
+      }}
+    />
+  );
+}
+```
+
 ## Feature Comparison
 
 ### Free Version
@@ -109,6 +162,12 @@ All components are built with React and styled using Tailwind CSS for easy custo
 To learn more about pro version features and pricing, visit our [pricing page](https://tailadmin.com/pricing).
 
 ## Changelog
+
+### Version 2.1.3 - [Apr 21, 2026]
+
+- Added full library exports for components, layouts, hooks, and providers.
+- Made layout modules configurable (menus, logos, links, header and auth layout sections).
+- Improved package outputs for external usage with generated TypeScript declarations.
 
 ### Version 2.1.0 - [Dec 30, 2025]
 
