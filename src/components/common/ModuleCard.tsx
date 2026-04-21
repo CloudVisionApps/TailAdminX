@@ -1,5 +1,5 @@
 interface ModuleCardProps {
-  title: string;
+  title: React.ReactNode;
   subtitle?: string;
   icon?: React.ReactNode;
   status?: React.ReactNode;

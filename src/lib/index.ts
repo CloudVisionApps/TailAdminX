@@ -12,6 +12,7 @@ export { default as ModuleCard } from "../components/common/ModuleCard";
 export { default as GridShape } from "../components/common/GridShape";
 export { default as PageBreadcrumb } from "../components/common/PageBreadCrumb";
 export { default as PageMeta } from "../components/common/PageMeta";
+export { default as PageHeader } from "../components/common/PageHeader";
 export { default as RadiusSelector } from "../components/common/RadiusSelector";
 export { ScrollToTop } from "../components/common/ScrollToTop";
 export { ThemeToggleButton } from "../components/common/ThemeToggleButton";
