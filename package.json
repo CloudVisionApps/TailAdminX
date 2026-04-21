@@ -1,7 +1,7 @@
 {
   "name": "@cloudvisionapps/tailadminx",
   "private": false,
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "TailAdminX React admin dashboard and UI library",
   "license": "MIT",
   "type": "module",
