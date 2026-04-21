@@ -1,3 +1,5 @@
+![TailAdminX dashboard](screenshots/screenshot.png)
+
 # TailAdminX
 
 TailAdminX is a React admin dashboard and UI library: layouts, charts, tables, forms, and supporting components, built with **React 19**, **TypeScript**, and **Tailwind CSS v4**. Use it as a Vite demo app in this repo or consume the published package in your own application.
