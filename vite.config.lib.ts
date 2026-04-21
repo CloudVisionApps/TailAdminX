@@ -21,7 +21,13 @@ export default defineConfig({
       fileName: (format) => `index.${format === "es" ? "js" : "cjs"}`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime"],
+      external: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "react-router",
+        "react-router-dom",
+      ],
     },
     outDir: "dist-lib",
     emptyOutDir: true,
