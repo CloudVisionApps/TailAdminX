@@ -41,9 +41,19 @@ jobs:
       - name: Build component library
         run: npm run build:lib
 
-      - name: Publish package to npm
+      # Repo .npmrc only sets the scope registry; npm publish still needs a token on this line.
+      - name: Configure npm auth for publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${NODE_AUTH_TOKEN}" ]; then
+            echo "::error::Add repository secret NPM_TOKEN: npmjs.com → Access Tokens → Granular (or classic) token with publish permission for package @cloudvisionapps/tailadminx (or the whole @cloudvisionapps scope)."
+            exit 1
+          fi
+          printf '%s\n' "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> "${GITHUB_WORKSPACE}/.npmrc"
+
+      - name: Publish package to npm
         run: npm publish --access public
 
       - name: Package release artifacts
