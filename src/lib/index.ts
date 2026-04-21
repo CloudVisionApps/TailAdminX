@@ -19,7 +19,6 @@ export { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 export { default as ThemeTogglerTwo } from "../components/common/ThemeTogglerTwo";
 export { AppWrapper } from "../components/common/PageMeta";
 
-export { default as CountryMap } from "../components/ecommerce/CountryMap";
 export { default as DemographicCard } from "../components/ecommerce/DemographicCard";
 export { default as EcommerceMetrics } from "../components/ecommerce/EcommerceMetrics";
 export { default as MonthlySalesChart } from "../components/ecommerce/MonthlySalesChart";

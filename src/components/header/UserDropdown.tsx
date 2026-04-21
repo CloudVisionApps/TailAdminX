@@ -80,6 +80,14 @@ export default function UserDropdown({
         onClose={closeDropdown}
         className="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
       >
+        <div className="px-3 pt-1">
+          <p className="font-semibold text-gray-800 text-theme-sm dark:text-white/90">
+            {fullName}
+          </p>
+          <p className="truncate text-gray-500 text-theme-xs dark:text-gray-400">
+            {email}
+          </p>
+        </div>
 
         <ul className="flex flex-col gap-1 pt-4 pb-3 border-b border-gray-200 dark:border-gray-800">
           <li>
