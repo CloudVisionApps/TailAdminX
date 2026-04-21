@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 // Props for Table
 interface TableProps {
@@ -36,7 +37,11 @@ interface TableCellProps {
 
 // Table Component
 const Table: React.FC<TableProps> = ({ children, className }) => {
-  return <table className={`min-w-full  ${className}`}>{children}</table>;
+  return (
+    <table className={twMerge("min-w-full text-gray-900 dark:text-gray-100", className)}>
+      {children}
+    </table>
+  );
 };
 
 // TableHeader Component
@@ -51,7 +56,16 @@ const TableBody: React.FC<TableBodyProps> = ({ children, className }) => {
 
 // TableRow Component
 const TableRow: React.FC<TableRowProps> = ({ children, className }) => {
-  return <tr className={className}>{children}</tr>;
+  return (
+    <tr
+      className={twMerge(
+        "transition-colors hover:bg-gray-50/70 dark:hover:bg-gray-800/30",
+        className,
+      )}
+    >
+      {children}
+    </tr>
+  );
 };
 
 // TableCell Component
@@ -62,8 +76,11 @@ const TableCell: React.FC<TableCellProps> = ({
   ...rest
 }) => {
   const CellTag = isHeader ? "th" : "td";
+  const cellClasses = isHeader
+    ? "bg-gray-50 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-700 dark:bg-gray-900/70 dark:text-gray-200"
+    : "px-4 py-3 align-middle text-left text-gray-900 dark:text-gray-100";
   return (
-    <CellTag className={` ${className}`} {...rest}>
+    <CellTag className={twMerge(cellClasses, className)} {...rest}>
       {children}
     </CellTag>
   );
