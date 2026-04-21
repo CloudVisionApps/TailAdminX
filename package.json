@@ -7,6 +7,7 @@
   "type": "module",
   "main": "./dist-lib/index.cjs",
   "module": "./dist-lib/index.js",
+  "types": "./dist-lib/lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CloudVisionApps/TailAdminX.git"
@@ -18,14 +19,14 @@
   },
   "exports": {
     ".": {
+      "types": "./dist-lib/lib/index.d.ts",
       "import": "./dist-lib/index.js",
       "require": "./dist-lib/index.cjs"
     },
-    "./styles.css": "./src/lib/styles.css"
+    "./styles.css": "./dist-lib/tailadminx.css"
   },
   "files": [
-    "dist-lib",
-    "src/lib/styles.css"
+    "dist-lib"
   ],
   "sideEffects": [
     "*.css"
@@ -33,7 +34,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:lib": "vite build -c vite.config.lib.ts",
+    "build:lib": "vite build -c vite.config.lib.ts && tsc -p tsconfig.lib.json",
     "lint": "eslint .",
     "preview": "vite preview",
     "prepublishOnly": "npm run build:lib",
