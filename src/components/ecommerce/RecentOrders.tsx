@@ -156,7 +156,7 @@ export default function RecentOrders() {
 
           {/* Table Body */}
 
-          <TableBody className="divide-y divide-gray-100 dark:divide-gray-800">
+          <TableBody>
             {tableData.map((product) => (
               <TableRow key={product.id} className="">
                 <TableCell className="py-3">
