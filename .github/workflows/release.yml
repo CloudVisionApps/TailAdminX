@@ -45,7 +45,7 @@ jobs:
       - name: Publish package to GitHub Packages
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN || secrets.GITHUB_TOKEN }}
-        run: npm publish --access restricted
+        run: npm publish --access public
 
       - name: Package release artifacts
         run: |
