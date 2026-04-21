@@ -5,7 +5,9 @@ import { useSidebar } from "../context/SidebarContext";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 import RadiusSelector from "../components/common/RadiusSelector";
 import NotificationDropdown from "../components/header/NotificationDropdown";
-import UserDropdown from "../components/header/UserDropdown";
+import UserDropdown, {
+  type UserDropdownProps,
+} from "../components/header/UserDropdown";
 
 export interface AppHeaderProps {
   brandLink?: string;
@@ -13,6 +15,7 @@ export interface AppHeaderProps {
   searchPlaceholder?: string;
   rightStart?: ReactNode;
   rightEnd?: ReactNode;
+  userDropdownProps?: UserDropdownProps;
   showSearch?: boolean;
 }
 
@@ -24,8 +27,6 @@ const defaultHeaderRightStart = (
   </>
 );
 
-const defaultHeaderRightEnd = <UserDropdown />;
-
 const AppHeader: React.FC<AppHeaderProps> = ({
   brandLink = "/",
   brand = (
@@ -35,7 +36,8 @@ const AppHeader: React.FC<AppHeaderProps> = ({
   ),
   searchPlaceholder = "Search or type command...",
   rightStart = defaultHeaderRightStart,
-  rightEnd = defaultHeaderRightEnd,
+  rightEnd,
+  userDropdownProps,
   showSearch = true,
 }) => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
@@ -74,6 +76,16 @@ const AppHeader: React.FC<AppHeaderProps> = ({
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [showSearch]);
+
+  const rightEndNode = rightEnd ?? (
+    <UserDropdown
+      {...(userDropdownProps ?? {
+        shortName: "Admin",
+        fullName: "Administrator",
+        email: "admin@localhost",
+      })}
+    />
+  );
 
   return (
     <header className="sticky top-0 flex w-full bg-white border-gray-200 z-99999 dark:border-gray-800 dark:bg-gray-900 lg:border-b">
@@ -185,7 +197,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({
           <div className="flex items-center gap-2 2xsm:gap-3">
             {rightStart}
           </div>
-          {rightEnd}
+          {rightEndNode}
         </div>
       </div>
     </header>

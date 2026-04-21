@@ -71,6 +71,7 @@ export {
 } from "../layout/AppSidebar";
 export type { AppLayoutProps } from "../layout/AppLayout";
 export type { AppHeaderProps } from "../layout/AppHeader";
+export type { UserDropdownProps } from "../components/header/UserDropdown";
 export type {
   AppSidebarProps,
   SidebarNavItem,
