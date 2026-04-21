@@ -8,6 +8,7 @@ export { default as LineChartOne } from "../components/charts/line/LineChartOne"
 
 export { default as ChartTab } from "../components/common/ChartTab";
 export { default as ComponentCard } from "../components/common/ComponentCard";
+export { default as ModuleCard } from "../components/common/ModuleCard";
 export { default as GridShape } from "../components/common/GridShape";
 export { default as PageBreadcrumb } from "../components/common/PageBreadCrumb";
 export { default as PageMeta } from "../components/common/PageMeta";

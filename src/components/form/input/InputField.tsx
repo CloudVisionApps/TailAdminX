@@ -1,18 +1,11 @@
 import type React from "react";
 import type { FC } from "react";
 
-interface InputProps {
-  type?: "text" | "number" | "email" | "password" | "date" | "time" | string;
-  id?: string;
-  name?: string;
-  placeholder?: string;
-  value?: string | number;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+type NativeInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">;
+
+interface InputProps extends NativeInputProps {
   className?: string;
-  min?: string;
-  max?: string;
   step?: number;
-  disabled?: boolean;
   success?: boolean;
   error?: boolean;
   hint?: string;
@@ -33,6 +26,7 @@ const Input: FC<InputProps> = ({
   success = false,
   error = false,
   hint,
+  ...rest
 }) => {
   let inputClasses = ` h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3  dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 ${className}`;
 
@@ -60,6 +54,7 @@ const Input: FC<InputProps> = ({
         step={step}
         disabled={disabled}
         className={inputClasses}
+        {...rest}
       />
 
       {hint && (

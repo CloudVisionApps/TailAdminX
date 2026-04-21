@@ -142,6 +142,40 @@ export default function DashboardShell() {
 }
 ```
 
+### Tailwind CSS Discovery in Consumer Apps
+
+By default, import the package CSS and you are done:
+
+```tsx
+import "@cloudvisionapps/tailadminx/styles.css";
+```
+
+If your app also runs Tailwind and you want Tailwind to discover classes from this package for your own build pipeline:
+
+- Tailwind v4: add `@source` for the package in your app stylesheet.
+- Tailwind v3: include the package path in `content` in your `tailwind.config`.
+
+Tailwind v4 example:
+
+```css
+@import "tailwindcss";
+@source "../node_modules/@cloudvisionapps/tailadminx/dist-lib/**/*.{js,cjs}";
+```
+
+Tailwind v3 example:
+
+```js
+// tailwind.config.js
+export default {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@cloudvisionapps/tailadminx/dist-lib/**/*.{js,cjs}",
+  ],
+};
+```
+
+Note: this package already ships compiled CSS (`@cloudvisionapps/tailadminx/styles.css`). Use discovery only when your app needs Tailwind to scan package markup for your own utility generation strategy.
+
 ## Feature Comparison
 
 ### Free Version
